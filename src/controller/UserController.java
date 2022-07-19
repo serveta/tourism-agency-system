@@ -1,0 +1,19 @@
+package controller;
+
+import model.User;
+
+public class UserController {
+    private User user;
+
+    public UserController(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}
