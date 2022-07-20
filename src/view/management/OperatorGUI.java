@@ -23,10 +23,24 @@ public class OperatorGUI extends JFrame {
         setLocation(Help.screenCenterPoint("x", getSize()), Help.screenCenterPoint("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
-        setVisible(true);
+        setVisible(false);
 
-        welcomeLabel.setText("Welcome, " + userController.getUser().getName());
+        System.out.println("* User List Test");
+        for (User u : userController.getAllUser(userController.getUser().getRole())) {
+            System.out.println(" +" +u.getName());
+        }
 
+        System.out.println("* User Add Test");
+        System.out.println(" +" +userController.addUser("Marry","mry","1212",1));
+
+        System.out.println("* User Delete Test");
+        System.out.println(" +" +userController.deleteUser(4));
+
+        System.out.println("* User Update Test (for its own)");
+        System.out.println(" +" + userController.updateUser(1,"Test-operator", "Test-username", "123",2));
+
+        System.out.println("* User Update Test-2");
+        System.out.println(" +" + userController.updateUser(7,"Test-operator", "Test-username-manager", "123",1));
 
     }
 }
