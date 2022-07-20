@@ -28,7 +28,7 @@ public class HotelController {
         return hotel.getList();
     }
 
-    public boolean add(String name, String address, String mail, String phone, String star) {
+    public boolean addHotel(String name, String address, String mail, String phone, String star) {
         if (hotel.getFetch(name,address) == null) {
             if (hotel.add(name,address,mail,phone,star)) {
                 System.out.println("Adding was successful.");
@@ -43,7 +43,7 @@ public class HotelController {
         }
     }
 
-    public boolean update(int id, String name, String address, String mail, String phone, String star) {
+    public boolean updateHotel(int id, String name, String address, String mail, String phone, String star) {
         if (hotel.getFetch(id) != null) {
             if (hotel.update(id, name, address, mail, phone, star)) {
                 System.out.println("Hotel updated.");
@@ -58,7 +58,7 @@ public class HotelController {
         }
     }
 
-    public boolean delete(User user, int hotelId) {
+    public boolean deleteHotel(User user, int hotelId) {
         if (user.getRole() == Role.MANAGER.getRole()) {
             if (hotel.getFetch(hotelId) != null) {
                 if (hotel.delete(hotelId)) {
@@ -70,6 +70,62 @@ public class HotelController {
                 }
             } else {
                 System.out.println("Hotel doesn't exist.");
+                return false;
+            }
+        } else {
+            System.out.println("Your role cannot access delete operation.");
+            return false;
+        }
+    }
+
+    public boolean addFacility(int hotelId, String facilityName) {
+        if (hotel.getFetch(hotelId) != null) {
+            if (hotel.getFetchFacility(hotelId,facilityName) == null) {
+                if (hotel.addFacility(hotelId, facilityName)) {
+                    System.out.println("Hotel facility added.");
+                    return true;
+                } else {
+                    System.out.println("An error occurred during the adding.");
+                    return  false;
+                }
+            } else {
+                System.out.println("The facility already there is.");
+                return false;
+            }
+
+        } else {
+            System.out.println("Hotel doesn't exist.");
+            return false;
+        }
+    }
+
+    public boolean updateFacility(int hotelId, String facilityName) {
+        if (hotel.getFetch(hotelId) != null) {
+            if (hotel.updateFacility(hotelId, facilityName)) {
+                System.out.println("Hotel facility updated.");
+                return true;
+            } else {
+                System.out.println("An error occurred during the update.");
+                return false;
+            }
+        } else {
+            System.out.println("Hotel doesn't exist.");
+            return false;
+        }
+    }
+
+    public boolean deleteFacility(User user, int hotelFacilityId) {
+        if (user.getRole() == Role.MANAGER.getRole()) {
+            if (hotel.getFetchFacility(hotelFacilityId) != null) {
+                if (hotel.deleteFacility(hotelFacilityId)) {
+                    System.out.println("Hotel facility deleted.");
+                    return true;
+                } else {
+                    System.out.println("An error occurred during the deletion.");
+                    return  false;
+                }
+            } else {
+                System.out.println("Hotel facility doesn't exist.");
                 return false;
             }
         } else {

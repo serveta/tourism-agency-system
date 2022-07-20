@@ -16,7 +16,9 @@ public class Hotel {
     private String phone;
     private String star;
 
-    public Hotel(){}
+    public Hotel() {
+    }
+
     public Hotel(int id, String name, String address, String mail, String phone, String star) {
         this.id = id;
         this.name = name;
@@ -204,7 +206,7 @@ public class Hotel {
             preparedStatement.setString(3, mail.trim());
             preparedStatement.setString(4, phone.trim());
             preparedStatement.setString(5, star.trim());
-            preparedStatement.setInt(6,id);
+            preparedStatement.setInt(6, id);
             isUpdate = preparedStatement.executeUpdate() != -1;
             preparedStatement.close();
         } catch (SQLException e) {
@@ -212,5 +214,104 @@ public class Hotel {
         }
 
         return isUpdate;
+    }
+
+    public boolean addFacility(int hotelId, String facilityName) {
+        String query = "INSERT INTO hotel_facility (hotel_id, facility_name) VALUES (?,?)";
+        boolean isAdd;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setInt(1, hotelId);
+            preparedStatement.setString(2, facilityName.trim());
+
+            isAdd = preparedStatement.executeUpdate() != -1;
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return isAdd;
+    }
+
+    public HotelFacility getFetchFacility(int hotelId, String facilityName) {
+        String query = "SELECT * FROM hotel_facility WHERE hotel_id = ? AND facility_name = ?";
+
+        HotelFacility hotelFacility = null;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setInt(1, hotelId);
+            preparedStatement.setString(2, facilityName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int ID = resultSet.getInt("id");
+                int HOTEL_ID = resultSet.getInt("hotel_id");
+                String ADDRESS = resultSet.getString("facility_name");
+                hotelFacility = new HotelFacility(ID, HOTEL_ID, ADDRESS);
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return hotelFacility;
+    }
+
+    public HotelFacility getFetchFacility(int hotelFacilityId) {
+        String query = "SELECT * FROM hotel_facility WHERE id = ?";
+
+        HotelFacility hotelFacility = null;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setInt(1, hotelFacilityId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int ID = resultSet.getInt("id");
+                int HOTEL_ID = resultSet.getInt("hotel_id");
+                String ADDRESS = resultSet.getString("facility_name");
+                hotelFacility = new HotelFacility(ID, HOTEL_ID, ADDRESS);
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return hotelFacility;
+    }
+
+    public boolean updateFacility(int hotelId, String facilityName) {
+        String query = "UPDATE hotel_facility SET facility_name=? WHERE id=?";
+        boolean isUpdate;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setString(1, facilityName.trim());
+            preparedStatement.setInt(2, hotelId);
+            isUpdate = preparedStatement.executeUpdate() != -1;
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return isUpdate;
+    }
+
+    public boolean deleteFacility(int facilityId) {
+        String query = "DELETE FROM hotel_facility WHERE id = ?";
+
+        boolean isDelete;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setInt(1, facilityId);
+            isDelete = preparedStatement.executeUpdate() != -1;
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return isDelete;
     }
 }

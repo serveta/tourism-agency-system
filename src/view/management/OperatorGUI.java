@@ -45,19 +45,39 @@ public class OperatorGUI extends JFrame {
         System.out.println(" +" + userController.updateUser(7,"Test-operator", "Test-username-manager", "123",1));
         */
 
+        /*
         System.out.println("* Get hotel list Test");
         for (Hotel hotel : userController.getHotelController().getAll()) {
             System.out.println(" +" + hotel.getName());
         }
 
         System.out.println("* Add hotel Test");
-        userController.getHotelController().add("Operator-add-hotel","address-o","o@mail.com","","1");
+        userController.getHotelController().addHotel("Operator-add-hotel","address-o","o@mail.com","","1");
 
         System.out.println("* Update hotel Test");
-        userController.getHotelController().update(4,"Updated Hotel-opr","no","no","1","6");
+        userController.getHotelController().updateHotel(4,"Updated Hotel-opr","no","no","1","6");
 
         System.out.println("* Delete hotel Test");
-        userController.getHotelController().delete(userController.getUser(),2);
+        userController.getHotelController().deleteHotel(userController.getUser(),2);
+        */
+
+        System.out.println("* Testing of adding facility for existing hotel");
+        userController.getHotelController().addFacility(4,"Test");
+
+        System.out.println("* Testing of adding the facility for non-existing hotel");
+        userController.getHotelController().addFacility(-1,"Test");
+
+        System.out.println("* Testing of adding the existing facility");
+        userController.getHotelController().addFacility(4,"Test");
+
+        System.out.println("* Testing of update the non-existing facility");
+        userController.getHotelController().updateFacility(-2,"Test");
+
+        System.out.println("* Testing of update the existing facility");
+        userController.getHotelController().updateFacility(4,"Test-update");
+
+        System.out.println("* Testing of deleting the existing facility");
+        userController.getHotelController().deleteFacility(userController.getUser(), 1);
 
     }
 }
