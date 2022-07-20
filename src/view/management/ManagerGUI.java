@@ -5,6 +5,7 @@ import controller.UserController;
 import helper.Config;
 import helper.Help;
 import model.Hotel;
+import model.HotelFacility;
 import model.User;
 
 import javax.swing.*;
@@ -23,61 +24,40 @@ public class ManagerGUI extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
         setVisible(false);
-        /*
-        System.out.println("* User List Test");
-        for (User u : userController.getAllUser(userController.getUser().getRole())) {
-            System.out.println(" +" + u.getName());
+
+        es();
+        userController.getHotelController().addHotel("MyHotel","myAddress","myMail","1234567","4");
+        userController.getHotelController().addHotel("MySecondHotel","mSecondyAddress","mySecondMail","1234765","5");
+        es();
+        for (Hotel hotel : userController.getHotelController().getAll()){
+            System.out.println(" +"+hotel.getName());
         }
-
-        System.out.println("* User Add Test");
-        System.out.println(" +" + userController.addUser("TEst-add", "testAdd", "111", 2));
-
-        System.out.println("* User Delete Test");
-        System.out.println(" +" +userController.deleteUser(4));
-
-        System.out.println("* User Update Test (for its own)");
-        System.out.println(" +" + userController.updateUser(7,"Test-M", "Test-username-manager", "123",1));
-
-        System.out.println("* User Update Test-2");
-        System.out.println(" +" + userController.updateUser(6,"Test-operator-2", "Test-username", "111",2));
-         */
-        /*
-        System.out.println("* Get hotel list Test");
-        for (Hotel h : userController.getHotelController().getAll()) {
-            System.out.println(" +" + h.getName());
+        es();
+        userController.getHotelController().updateHotel(-1,"xx","xx","xx","","0");
+        userController.getHotelController().updateHotel(6,"MySecondHotel","mySecondAddress","mySecondMail","9876543","5");
+        es();
+        userController.getHotelController().getHotelFacilityController().addFacility(6,"Facility-1");
+        userController.getHotelController().getHotelFacilityController().addFacility(6,"Facility-2");
+        es();
+        userController.getHotelController().deleteHotel(userController.getUser(),-1);
+        userController.getHotelController().deleteHotel(userController.getUser(),6);
+        es();
+        userController.getHotelController().getHotelFacilityController().addFacility(7,"Facility-A-1");
+        userController.getHotelController().getHotelFacilityController().addFacility(8,"Facility-B-1");
+        userController.getHotelController().getHotelFacilityController().addFacility(8,"Facility-B-2");
+        userController.getHotelController().getHotelFacilityController().addFacility(8,"Facility-B-3");
+        es();
+        userController.getHotelController().getHotelFacilityController().updateFacility(9,"Facility-A");
+        es();
+        userController.getHotelController().getHotelFacilityController().deleteFacility(userController.getUser(),10);
+        userController.getHotelController().getHotelFacilityController().deleteFacility(userController.getUser(),-1);
+        es();
+        for (HotelFacility hotelFacility : userController.getHotelController().getHotelFacilityController().getAll(8)){
+            System.out.println(" +" + hotelFacility.getFacilityName());
         }
+    }
 
-        System.out.println("* Add hotel Test");
-        userController.getHotelController().addHotel("Manager-add-hotel","address-m","m@mail.com","1212","2");
-
-        System.out.println("* Add same hotel Test");
-        userController.getHotelController().addHotel("Manager-add-hotel","address-m","m@mail.com","1212","2");
-
-        System.out.println("* Update non exist hotel Test");
-        userController.getHotelController().updateHotel(-1,"no","no","no","1","1");
-
-        System.out.println("* Update hotel Test");
-        userController.getHotelController().updateHotel(1,"Updated Hotel","no","no","1","0");
-
-        System.out.println("* Delete non exist hotel Test");
-        userController.getHotelController().deleteHotel(userController.getUser(),-2);
-
-        System.out.println("* Delete hotel Test");
-        userController.getHotelController().deleteHotel(userController.getUser(),1);
-         */
-
-        /*
-        System.out.println("* Testing of deleting the existing facility");
-        userController.getHotelController().deleteFacility(userController.getUser(), 1);
-
-        System.out.println("* Testing of deleting the non-existing facility");
-        userController.getHotelController().deleteFacility(userController.getUser(), -1);
-        */
-
-        System.out.println("Add hotel facility for next delete operation");
-        userController.getHotelController().addFacility(3,"Test f");
-
-        System.out.println("Test of delete the hotel and its facilities");
-        userController.getHotelController().deleteHotel(userController.getUser(),3);
+    private void es(){
+        System.out.println("******");
     }
 }
