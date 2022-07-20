@@ -314,4 +314,21 @@ public class Hotel {
 
         return isDelete;
     }
+
+    public boolean deleteAllFacilitiesOfHotel(int hotelId) {
+        String query = "DELETE FROM hotel_facility WHERE hotel_id = ?";
+
+        boolean isDelete;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setInt(1, hotelId);
+            isDelete = preparedStatement.executeUpdate() != -1;
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return isDelete;
+    }
 }

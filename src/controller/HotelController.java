@@ -61,8 +61,8 @@ public class HotelController {
     public boolean deleteHotel(User user, int hotelId) {
         if (user.getRole() == Role.MANAGER.getRole()) {
             if (hotel.getFetch(hotelId) != null) {
-                if (hotel.delete(hotelId)) {
-                    System.out.println("Hotel deleted.");
+                if (hotel.delete(hotelId) && hotel.deleteAllFacilitiesOfHotel(hotelId)) {
+                    System.out.println("The hotel and its facilities were deleted.");
                     return true;
                 } else {
                     System.out.println("An error occurred during the deletion.");

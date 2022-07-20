@@ -61,6 +61,7 @@ public class OperatorGUI extends JFrame {
         userController.getHotelController().deleteHotel(userController.getUser(),2);
         */
 
+        /*
         System.out.println("* Testing of adding facility for existing hotel");
         userController.getHotelController().addFacility(4,"Test");
 
@@ -78,6 +79,7 @@ public class OperatorGUI extends JFrame {
 
         System.out.println("* Testing of deleting the existing facility");
         userController.getHotelController().deleteFacility(userController.getUser(), 1);
+         */
 
     }
 }

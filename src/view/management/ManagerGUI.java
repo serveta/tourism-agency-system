@@ -66,11 +66,18 @@ public class ManagerGUI extends JFrame {
         userController.getHotelController().deleteHotel(userController.getUser(),1);
          */
 
+        /*
         System.out.println("* Testing of deleting the existing facility");
         userController.getHotelController().deleteFacility(userController.getUser(), 1);
 
         System.out.println("* Testing of deleting the non-existing facility");
         userController.getHotelController().deleteFacility(userController.getUser(), -1);
+        */
 
+        System.out.println("Add hotel facility for next delete operation");
+        userController.getHotelController().addFacility(3,"Test f");
+
+        System.out.println("Test of delete the hotel and its facilities");
+        userController.getHotelController().deleteHotel(userController.getUser(),3);
     }
 }
