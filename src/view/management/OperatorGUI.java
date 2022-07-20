@@ -4,6 +4,7 @@ import controller.UserController;
 import helper.Config;
 import helper.Help;
 import helper.Role;
+import model.Hotel;
 import model.User;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class OperatorGUI extends JFrame {
         setTitle(Config.PROJECT_TITLE);
         setVisible(false);
 
+        /*
         System.out.println("* User List Test");
         for (User u : userController.getAllUser(userController.getUser().getRole())) {
             System.out.println(" +" +u.getName());
@@ -41,6 +43,21 @@ public class OperatorGUI extends JFrame {
 
         System.out.println("* User Update Test-2");
         System.out.println(" +" + userController.updateUser(7,"Test-operator", "Test-username-manager", "123",1));
+        */
+
+        System.out.println("* Get hotel list Test");
+        for (Hotel hotel : userController.getHotelController().getAll()) {
+            System.out.println(" +" + hotel.getName());
+        }
+
+        System.out.println("* Add hotel Test");
+        userController.getHotelController().add("Operator-add-hotel","address-o","o@mail.com","","1");
+
+        System.out.println("* Update hotel Test");
+        userController.getHotelController().update(4,"Updated Hotel-opr","no","no","1","6");
+
+        System.out.println("* Delete hotel Test");
+        userController.getHotelController().delete(userController.getUser(),2);
 
     }
 }

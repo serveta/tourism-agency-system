@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 public class UserController {
     private User user;
+    private HotelController hotelController;
 
     public UserController(User user) {
         this.user = user;
+        this.hotelController = new HotelController();
     }
 
     public User getUser() {
@@ -18,6 +20,14 @@ public class UserController {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public HotelController getHotelController() {
+        return hotelController;
+    }
+
+    public void setHotelController(HotelController hotelController) {
+        this.hotelController = hotelController;
     }
 
     public ArrayList<User> getAllUser(int role) {
