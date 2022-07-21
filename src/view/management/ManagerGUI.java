@@ -25,22 +25,27 @@ public class ManagerGUI extends JFrame {
         setVisible(false);
 
         es();
-        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(10,"room type test",3);
-        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(8,"room type test",3);
-        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(8,"room type test-2",2);
-        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(-1,"room type test-3",3);
+        userController.getHotelController().addHotel("MyHotel", "MyAddress", "mail@", "111", "3");
+        userController.getHotelController().addHotel("MyHotel2", "MyAddress2", "mail2@", "222", "4");
+        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(11, "Suit", 5);
+        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(12, "XXXX", 3);
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().addRoomFeature(6, "TV");
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().addRoomFeature(6, "Test");
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().addRoomFeature(7, "Test");
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().addRoomFeature(8, "Test");
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().addRoomFeature(-1, "mom exist room");
         es();
-        userController.getHotelController().getHotelRoomTypeController().updateHotelRoomType(1,8,"update test",1);
-        userController.getHotelController().getHotelRoomTypeController().updateHotelRoomType(-1,8,"update test",1);
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().updateRoomFeature(1, 6, "update");
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().updateRoomFeature(-1, 11, "update");
         es();
-        userController.getHotelController().getHotelRoomTypeController().deleteHotelRoomType(userController.getUser(),2);
-        userController.getHotelController().getHotelRoomTypeController().deleteHotelRoomType(userController.getUser(),-1);
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().deleteHotelRoomType(userController.getUser(), 1);
+        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().deleteHotelRoomType(userController.getUser(), -1);
         es();
-        for (HotelRoomType hotelRoomType : userController.getHotelController().getHotelRoomTypeController().getAll(8)){
-            System.out.println(" +" + hotelRoomType.getRoomType());
+        for (RoomFeature roomFeature : userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().getAll(6)) {
+            System.out.println(" +" + roomFeature.getFeature());
         }
         es();
-        userController.getHotelController().deleteHotel(userController.getUser(),8);
+        userController.getHotelController().deleteHotel(userController.getUser(),11);
     }
 
     private void es() {
