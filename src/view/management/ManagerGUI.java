@@ -4,12 +4,10 @@ import controller.HotelController;
 import controller.UserController;
 import helper.Config;
 import helper.Help;
-import model.HostelType;
-import model.Hotel;
-import model.HotelFacility;
-import model.User;
+import model.*;
 
 import javax.swing.*;
+import java.sql.Date;
 
 public class ManagerGUI extends JFrame {
     private JPanel wrapper;
@@ -27,24 +25,26 @@ public class ManagerGUI extends JFrame {
         setVisible(false);
 
         es();
-        userController.getHotelController().getHostelController().addHostelType(9,"Test-h.type-1");
-        userController.getHotelController().getHostelController().addHostelType(9,"Test-h.type-2");
-        userController.getHotelController().getHostelController().addHostelType(-1,"Test-h.type-3");
+        Date dateStart = Date.valueOf("2022-12-12");
+        Date dateEnd = Date.valueOf("2022-04-12");
+        userController.getHotelController().getHotelSeasonController().addHotelSeason(7, dateStart, dateEnd, "season-test-1");
+        userController.getHotelController().getHotelSeasonController().addHotelSeason(7, dateStart, dateEnd, "season-test-2");
+        userController.getHotelController().getHotelSeasonController().addHotelSeason(-1, dateStart, dateEnd, "season-test-3");
         es();
-        userController.getHotelController().getHostelController().updateHostelType(2,"update-test");
-        userController.getHotelController().getHostelController().updateHostelType(-1,"update-test");
+        userController.getHotelController().getHotelSeasonController().updateHotelSeason(1,7,dateStart,dateEnd,"update-test-season-name");
+        userController.getHotelController().getHotelSeasonController().updateHotelSeason(-1,7,dateStart,dateEnd,"update-test");
         es();
-        userController.getHotelController().getHostelController().deleteHostelType(userController.getUser(),1);
-        userController.getHotelController().getHostelController().deleteHostelType(userController.getUser(),-1);
+        userController.getHotelController().getHotelSeasonController().deleteHotelSeason(userController.getUser(), 1);
+        userController.getHotelController().getHotelSeasonController().deleteHotelSeason(userController.getUser(), -1);
         es();
-        for (HostelType hostelType : userController.getHotelController().getHostelController().getAll(9)){
-            System.out.println(" +" + hostelType.getHostelType());
+        for (HotelSeason hotelSeason : userController.getHotelController().getHotelSeasonController().getAll(7)){
+            System.out.println(" +" + hotelSeason.getSeasonName());
         }
         es();
-        userController.getHotelController().deleteHotel(userController.getUser(),9);
+        userController.getHotelController().deleteHotel(userController.getUser(),7);
     }
 
-    private void es(){
+    private void es() {
         System.out.println("******");
     }
 }

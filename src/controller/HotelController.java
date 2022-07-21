@@ -3,6 +3,7 @@ package controller;
 import helper.Role;
 import model.Hotel;
 import model.HotelFacility;
+import model.HotelSeason;
 import model.User;
 
 import java.util.ArrayList;
@@ -11,11 +12,13 @@ public class HotelController {
     private Hotel hotel;
     private HotelFacilityController hotelFacilityController;
     private HostelController hostelController;
+    private HotelSeasonController hotelSeasonController;
 
     public HotelController() {
         this.hotel = new Hotel();
         this.hotelFacilityController = new HotelFacilityController();
         this.hostelController = new HostelController();
+        this.hotelSeasonController = new HotelSeasonController();
     }
 
     public Hotel getHotel() {
@@ -40,6 +43,14 @@ public class HotelController {
 
     public void setHostelController(HostelController hostelController) {
         this.hostelController = hostelController;
+    }
+
+    public HotelSeasonController getHotelSeasonController() {
+        return hotelSeasonController;
+    }
+
+    public void setHotelSeasonController(HotelSeasonController hotelSeasonController) {
+        this.hotelSeasonController = hotelSeasonController;
     }
 
     public ArrayList<Hotel> getAll() {
@@ -91,9 +102,11 @@ public class HotelController {
                 if (hotel.delete(hotelId)) {
                     HotelFacilityController hotelFacilityController1 = new HotelFacilityController();
                     HostelController hostelController1 = new HostelController();
+                    HotelSeasonController hotelSeasonController1 = new HotelSeasonController();
                     hotelFacilityController1.deleteAllFacilitiesOfHotel(hotelId);
                     hostelController1.deleteAllHostelTypeOfHotel(hotelId);
-                    System.out.println("The hotel and its facilities, hostel types were deleted.");
+                    hotelSeasonController1.deleteAllHotelSeasonOfHotel(hotelId);
+                    System.out.println("The hotel were deleted.");
                     return true;
                 } else {
                     System.out.println("An error occurred during the deletion.");
