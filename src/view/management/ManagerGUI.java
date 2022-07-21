@@ -25,23 +25,22 @@ public class ManagerGUI extends JFrame {
         setVisible(false);
 
         es();
-        Date dateStart = Date.valueOf("2022-12-12");
-        Date dateEnd = Date.valueOf("2022-04-12");
-        userController.getHotelController().getHotelSeasonController().addHotelSeason(7, dateStart, dateEnd, "season-test-1");
-        userController.getHotelController().getHotelSeasonController().addHotelSeason(7, dateStart, dateEnd, "season-test-2");
-        userController.getHotelController().getHotelSeasonController().addHotelSeason(-1, dateStart, dateEnd, "season-test-3");
+        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(10,"room type test",3);
+        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(8,"room type test",3);
+        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(8,"room type test-2",2);
+        userController.getHotelController().getHotelRoomTypeController().addHotelRoomType(-1,"room type test-3",3);
         es();
-        userController.getHotelController().getHotelSeasonController().updateHotelSeason(1,7,dateStart,dateEnd,"update-test-season-name");
-        userController.getHotelController().getHotelSeasonController().updateHotelSeason(-1,7,dateStart,dateEnd,"update-test");
+        userController.getHotelController().getHotelRoomTypeController().updateHotelRoomType(1,8,"update test",1);
+        userController.getHotelController().getHotelRoomTypeController().updateHotelRoomType(-1,8,"update test",1);
         es();
-        userController.getHotelController().getHotelSeasonController().deleteHotelSeason(userController.getUser(), 1);
-        userController.getHotelController().getHotelSeasonController().deleteHotelSeason(userController.getUser(), -1);
+        userController.getHotelController().getHotelRoomTypeController().deleteHotelRoomType(userController.getUser(),2);
+        userController.getHotelController().getHotelRoomTypeController().deleteHotelRoomType(userController.getUser(),-1);
         es();
-        for (HotelSeason hotelSeason : userController.getHotelController().getHotelSeasonController().getAll(7)){
-            System.out.println(" +" + hotelSeason.getSeasonName());
+        for (HotelRoomType hotelRoomType : userController.getHotelController().getHotelRoomTypeController().getAll(8)){
+            System.out.println(" +" + hotelRoomType.getRoomType());
         }
         es();
-        userController.getHotelController().deleteHotel(userController.getUser(),7);
+        userController.getHotelController().deleteHotel(userController.getUser(),8);
     }
 
     private void es() {

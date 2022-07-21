@@ -13,12 +13,22 @@ public class HotelController {
     private HotelFacilityController hotelFacilityController;
     private HostelController hostelController;
     private HotelSeasonController hotelSeasonController;
+    private HotelRoomTypeController hotelRoomTypeController;
 
     public HotelController() {
         this.hotel = new Hotel();
         this.hotelFacilityController = new HotelFacilityController();
         this.hostelController = new HostelController();
         this.hotelSeasonController = new HotelSeasonController();
+        this.hotelRoomTypeController = new HotelRoomTypeController();
+    }
+
+    public HotelRoomTypeController getHotelRoomTypeController() {
+        return hotelRoomTypeController;
+    }
+
+    public void setHotelRoomTypeController(HotelRoomTypeController hotelRoomTypeController) {
+        this.hotelRoomTypeController = hotelRoomTypeController;
     }
 
     public Hotel getHotel() {
@@ -100,12 +110,10 @@ public class HotelController {
         if (user.getRole() == Role.MANAGER.getRole()) {
             if (hotel.getFetch(hotelId) != null) {
                 if (hotel.delete(hotelId)) {
-                    HotelFacilityController hotelFacilityController1 = new HotelFacilityController();
-                    HostelController hostelController1 = new HostelController();
-                    HotelSeasonController hotelSeasonController1 = new HotelSeasonController();
-                    hotelFacilityController1.deleteAllFacilitiesOfHotel(hotelId);
-                    hostelController1.deleteAllHostelTypeOfHotel(hotelId);
-                    hotelSeasonController1.deleteAllHotelSeasonOfHotel(hotelId);
+                    getHotelFacilityController().deleteAllFacilitiesOfHotel(hotelId);
+                    getHostelController().deleteAllHostelTypeOfHotel(hotelId);
+                    getHotelSeasonController().deleteAllHotelSeasonOfHotel(hotelId);
+                    getHotelRoomTypeController().deleteAllRoomTypeOfHotel(hotelId);
                     System.out.println("The hotel were deleted.");
                     return true;
                 } else {
