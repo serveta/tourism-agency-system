@@ -27,19 +27,8 @@ public class OperatorGUI extends JFrame {
         setVisible(false);
 
         es();
-        userController.getHotelController().addHotel("MyHotel","myAddress","myMail","1234567","4");
-        userController.getHotelController().addHotel("MySecondHotel","mSecondyAddress","mySecondMail","1234765","5");
-        es();
-        for (Hotel hotel : userController.getHotelController().getAll()){
-            System.out.println(" +"+hotel.getName());
-        }
-        es();
-        userController.getHotelController().updateHotel(-1,"xx","xx","xx","","0");
-        userController.getHotelController().updateHotel(7,"MySecondHotel","mySecondAddress","mySecondMail","9876543","5");
-        es();
-        userController.getHotelController().deleteHotel(userController.getUser(),-1);
-        es();
-        userController.getHotelController().getHotelFacilityController().deleteFacility(userController.getUser(),-1);
+        userController.getHotelController().getHostelController().deleteHostelType(userController.getUser(),-1);
+
     }
     private void es(){
         System.out.println("******");

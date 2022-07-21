@@ -4,6 +4,7 @@ import controller.HotelController;
 import controller.UserController;
 import helper.Config;
 import helper.Help;
+import model.HostelType;
 import model.Hotel;
 import model.HotelFacility;
 import model.User;
@@ -26,35 +27,21 @@ public class ManagerGUI extends JFrame {
         setVisible(false);
 
         es();
-        userController.getHotelController().addHotel("MyHotel","myAddress","myMail","1234567","4");
-        userController.getHotelController().addHotel("MySecondHotel","mSecondyAddress","mySecondMail","1234765","5");
+        userController.getHotelController().getHostelController().addHostelType(9,"Test-h.type-1");
+        userController.getHotelController().getHostelController().addHostelType(9,"Test-h.type-2");
+        userController.getHotelController().getHostelController().addHostelType(-1,"Test-h.type-3");
         es();
-        for (Hotel hotel : userController.getHotelController().getAll()){
-            System.out.println(" +"+hotel.getName());
+        userController.getHotelController().getHostelController().updateHostelType(2,"update-test");
+        userController.getHotelController().getHostelController().updateHostelType(-1,"update-test");
+        es();
+        userController.getHotelController().getHostelController().deleteHostelType(userController.getUser(),1);
+        userController.getHotelController().getHostelController().deleteHostelType(userController.getUser(),-1);
+        es();
+        for (HostelType hostelType : userController.getHotelController().getHostelController().getAll(9)){
+            System.out.println(" +" + hostelType.getHostelType());
         }
         es();
-        userController.getHotelController().updateHotel(-1,"xx","xx","xx","","0");
-        userController.getHotelController().updateHotel(6,"MySecondHotel","mySecondAddress","mySecondMail","9876543","5");
-        es();
-        userController.getHotelController().getHotelFacilityController().addFacility(6,"Facility-1");
-        userController.getHotelController().getHotelFacilityController().addFacility(6,"Facility-2");
-        es();
-        userController.getHotelController().deleteHotel(userController.getUser(),-1);
-        userController.getHotelController().deleteHotel(userController.getUser(),6);
-        es();
-        userController.getHotelController().getHotelFacilityController().addFacility(7,"Facility-A-1");
-        userController.getHotelController().getHotelFacilityController().addFacility(8,"Facility-B-1");
-        userController.getHotelController().getHotelFacilityController().addFacility(8,"Facility-B-2");
-        userController.getHotelController().getHotelFacilityController().addFacility(8,"Facility-B-3");
-        es();
-        userController.getHotelController().getHotelFacilityController().updateFacility(9,"Facility-A");
-        es();
-        userController.getHotelController().getHotelFacilityController().deleteFacility(userController.getUser(),10);
-        userController.getHotelController().getHotelFacilityController().deleteFacility(userController.getUser(),-1);
-        es();
-        for (HotelFacility hotelFacility : userController.getHotelController().getHotelFacilityController().getAll(8)){
-            System.out.println(" +" + hotelFacility.getFacilityName());
-        }
+        userController.getHotelController().deleteHotel(userController.getUser(),9);
     }
 
     private void es(){

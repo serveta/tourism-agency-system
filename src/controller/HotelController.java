@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public class HotelController {
     private Hotel hotel;
     private HotelFacilityController hotelFacilityController;
+    private HostelController hostelController;
 
     public HotelController() {
         this.hotel = new Hotel();
         this.hotelFacilityController = new HotelFacilityController();
+        this.hostelController = new HostelController();
     }
 
     public Hotel getHotel() {
@@ -30,6 +32,14 @@ public class HotelController {
 
     public void setHotelFacilityController(HotelFacilityController hotelFacilityController) {
         this.hotelFacilityController = hotelFacilityController;
+    }
+
+    public HostelController getHostelController() {
+        return hostelController;
+    }
+
+    public void setHostelController(HostelController hostelController) {
+        this.hostelController = hostelController;
     }
 
     public ArrayList<Hotel> getAll() {
@@ -80,8 +90,10 @@ public class HotelController {
             if (hotel.getFetch(hotelId) != null) {
                 if (hotel.delete(hotelId)) {
                     HotelFacilityController hotelFacilityController1 = new HotelFacilityController();
+                    HostelController hostelController1 = new HostelController();
                     hotelFacilityController1.deleteAllFacilitiesOfHotel(hotelId);
-                    System.out.println("The hotel and its facilities were deleted.");
+                    hostelController1.deleteAllHostelTypeOfHotel(hotelId);
+                    System.out.println("The hotel and its facilities, hostel types were deleted.");
                     return true;
                 } else {
                     System.out.println("An error occurred during the deletion.");
