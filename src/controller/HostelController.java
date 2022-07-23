@@ -2,7 +2,6 @@ package controller;
 
 import helper.Role;
 import model.HostelType;
-import model.HotelFacility;
 import model.User;
 
 import java.util.ArrayList;
@@ -22,11 +21,11 @@ public class HostelController {
         this.hostelType = hostelType;
     }
 
-    public boolean addHostelType(int hotelId, String hostelType) {
+    public boolean addHostelType(int hotelId, String hostelType, int price) {
         HotelController hotelController = new HotelController();
         if (hotelController.getFetch(hotelId) != null) {
             if (getHostelType().getFetchHostelType(hotelId,hostelType) == null) {
-                if (getHostelType().addHostelType(hotelId, hostelType)) {
+                if (getHostelType().addHostelType(hotelId, hostelType, price)) {
                     System.out.println("Hostel type added for hotel : " + hotelController.getFetch(hotelId).getName());
                     return true;
                 } else {
@@ -43,9 +42,9 @@ public class HostelController {
         }
     }
 
-    public boolean updateHostelType(int hostelTypeId, String hostelType) {
+    public boolean updateHostelType(int hostelTypeId, String hostelType, int price) {
         if (getHostelType().getFetchHostelType(hostelTypeId) != null) {
-            if (getHostelType().updateHostelType(hostelTypeId, hostelType)) {
+            if (getHostelType().updateHostelType(hostelTypeId, hostelType, price)) {
                 System.out.println("Hostel type updated.");
                 return true;
             } else {

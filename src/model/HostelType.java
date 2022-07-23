@@ -8,17 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HostelType {
-    int id;
-    int hotelId;
-    String hostelType;
+    private int id;
+    private int hotelId;
+    private String hostelType;
+    private int price;
 
     public HostelType() {
     }
 
-    public HostelType(int id, int hotelId, String hostelType) {
+    public HostelType(int id, int hotelId, String hostelType, int price) {
         this.id = id;
         this.hotelId = hotelId;
         this.hostelType = hostelType;
+        this.price = price;
     }
 
     public int getId() {
@@ -45,15 +47,23 @@ public class HostelType {
         this.hostelType = hostelType;
     }
 
-    public boolean addHostelType(int hotelId, String hostelType) {
-        String query = "INSERT INTO hotel_hostel_type (hotel_id, hostel_type) VALUES (?,?)";
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean addHostelType(int hotelId, String hostelType, int price) {
+        String query = "INSERT INTO hotel_hostel_type (hotel_id, hostel_type, price) VALUES (?,?, ?)";
         boolean isAdd;
 
         try {
             PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
             preparedStatement.setInt(1, hotelId);
             preparedStatement.setString(2, hostelType.trim());
-
+            preparedStatement.setInt(3, price);
             isAdd = preparedStatement.executeUpdate() != -1;
             preparedStatement.close();
         } catch (SQLException e) {
@@ -77,7 +87,8 @@ public class HostelType {
                 int ID = resultSet.getInt("id");
                 int HOTEL_ID = resultSet.getInt("hotel_id");
                 String HOSTEL_TYPE = resultSet.getString("hostel_type");
-                hType = new HostelType(ID, HOTEL_ID, HOSTEL_TYPE);
+                int PRICE = resultSet.getInt("price");
+                hType = new HostelType(ID, HOTEL_ID, HOSTEL_TYPE, PRICE);
             }
             resultSet.close();
             preparedStatement.close();
@@ -101,7 +112,8 @@ public class HostelType {
                 int ID = resultSet.getInt("id");
                 int HOTEL_ID = resultSet.getInt("hotel_id");
                 String HOSTEL_TYPE = resultSet.getString("hostel_type");
-                hType = new HostelType(ID, HOTEL_ID, HOSTEL_TYPE);
+                int PRICE = resultSet.getInt("price");
+                hType = new HostelType(ID, HOTEL_ID, HOSTEL_TYPE, PRICE);
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -111,14 +123,15 @@ public class HostelType {
         return hType;
     }
 
-    public boolean updateHostelType(int id, String hostelType) {
-        String query = "UPDATE hotel_hostel_type SET hostel_type=? WHERE id=?";
+    public boolean updateHostelType(int id, String hostelType, int price) {
+        String query = "UPDATE hotel_hostel_type SET hostel_type=?, price=? WHERE id=?";
         boolean isUpdate;
 
         try {
             PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
             preparedStatement.setString(1, hostelType.trim());
-            preparedStatement.setInt(2, id);
+            preparedStatement.setInt(2, price);
+            preparedStatement.setInt(3, id);
             isUpdate = preparedStatement.executeUpdate() != -1;
             preparedStatement.close();
         } catch (SQLException e) {
@@ -176,7 +189,8 @@ public class HostelType {
                 int ID = resultSet.getInt("id");
                 int HOTEL_ID = resultSet.getInt("hotel_id");
                 String HOSTEL_TYPE = resultSet.getString("hostel_type");
-                hType = new HostelType(ID, HOTEL_ID, HOSTEL_TYPE);
+                int PRICE = resultSet.getInt("price");
+                hType = new HostelType(ID, HOTEL_ID, HOSTEL_TYPE, PRICE);
                 hostelTypeList.add(hType);
             }
             resultSet.close();
