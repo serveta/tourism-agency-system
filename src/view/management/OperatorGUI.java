@@ -26,8 +26,7 @@ public class OperatorGUI extends JFrame {
         setTitle(Config.PROJECT_TITLE);
         setVisible(false);
 
-        es();
-        userController.getHotelController().getHotelRoomTypeController().getRoomFeatureController().deleteHotelRoomType(userController.getUser(),-1);
+
     }
     private void es(){
         System.out.println("******");
