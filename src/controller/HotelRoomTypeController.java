@@ -30,11 +30,11 @@ public class HotelRoomTypeController {
         return roomFeatureController;
     }
 
-    public boolean addHotelRoomType(int hotelId, String roomType, int stock) {
+    public boolean addHotelRoomType(int hotelId, String roomType, int stock, int price) {
         HotelController hotelController = new HotelController();
         if (hotelController.getFetch(hotelId) != null) {
             if (getHotelRoomType().getFetchHotelRoomType(hotelId, roomType) == null) {
-                if (getHotelRoomType().addHotelRoomType(hotelId, roomType, stock)) {
+                if (getHotelRoomType().addHotelRoomType(hotelId, roomType, stock, price)) {
                     System.out.println("Room Type added for hotel : " + hotelController.getFetch(hotelId).getName());
                     return true;
                 } else {
@@ -51,9 +51,9 @@ public class HotelRoomTypeController {
         }
     }
 
-    public boolean updateHotelRoomType(int id, int hotelId, String roomType, int stock) {
+    public boolean updateHotelRoomType(int id, int hotelId, String roomType, int stock, int price) {
         if (getHotelRoomType().getFetchHotelRoomType(id) != null) {
-            if (getHotelRoomType().updateHotelRoomType(id, hotelId, roomType, stock)) {
+            if (getHotelRoomType().updateHotelRoomType(id, hotelId, roomType, stock, price)) {
                 System.out.println("Room type updated.");
                 return true;
             } else {

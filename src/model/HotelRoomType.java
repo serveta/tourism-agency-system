@@ -13,15 +13,17 @@ public class HotelRoomType {
     private int hotelId;
     private String roomType;
     private int stock;
+    private int price;
 
     public HotelRoomType() {
     }
 
-    public HotelRoomType(int id, int hotelId, String roomType, int stock) {
+    public HotelRoomType(int id, int hotelId, String roomType, int stock, int price) {
         this.id = id;
         this.hotelId = hotelId;
         this.roomType = roomType;
         this.stock = stock;
+        this.price = price;
     }
 
     public int getId() {
@@ -56,8 +58,16 @@ public class HotelRoomType {
         this.stock = stock;
     }
 
-    public boolean addHotelRoomType(int hotelId, String roomType, int stock) {
-        String query = "INSERT INTO hotel_room_type (hotel_id, room_type, stock) VALUES (?,?,?)";
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean addHotelRoomType(int hotelId, String roomType, int stock, int price) {
+        String query = "INSERT INTO hotel_room_type (hotel_id, room_type, stock, price) VALUES (?,?,?,?)";
         boolean isAdd;
 
         try {
@@ -65,6 +75,7 @@ public class HotelRoomType {
             preparedStatement.setInt(1, hotelId);
             preparedStatement.setString(2, roomType);
             preparedStatement.setInt(3, stock);
+            preparedStatement.setInt(4, price);
             isAdd = preparedStatement.executeUpdate() != -1;
             preparedStatement.close();
         } catch (SQLException e) {
@@ -89,7 +100,8 @@ public class HotelRoomType {
                 int HOTEL_ID = resultSet.getInt("hotel_id");
                 String ROOM_TYPE = resultSet.getString("room_type");
                 int STOCK = resultSet.getInt("stock");
-                hotelRoomType = new HotelRoomType(ID, HOTEL_ID, ROOM_TYPE, STOCK);
+                int PRICE = resultSet.getInt("price");
+                hotelRoomType = new HotelRoomType(ID, HOTEL_ID, ROOM_TYPE, STOCK, PRICE);
             }
             resultSet.close();
             preparedStatement.close();
@@ -114,7 +126,8 @@ public class HotelRoomType {
                 int HOTEL_ID = resultSet.getInt("hotel_id");
                 String ROOM_TYPE = resultSet.getString("room_type");
                 int STOCK = resultSet.getInt("stock");
-                hotelRoomType = new HotelRoomType(ID, HOTEL_ID, ROOM_TYPE, STOCK);
+                int PRICE = resultSet.getInt("price");
+                hotelRoomType = new HotelRoomType(ID, HOTEL_ID, ROOM_TYPE, STOCK, PRICE);
             }
             resultSet.close();
             preparedStatement.close();
@@ -125,8 +138,8 @@ public class HotelRoomType {
         return hotelRoomType;
     }
 
-    public boolean updateHotelRoomType(int id, int hotelId, String roomType, int stock) {
-        String query = "UPDATE hotel_room_type SET hotel_id=?, room_type=?, stock=? WHERE id=?";
+    public boolean updateHotelRoomType(int id, int hotelId, String roomType, int stock, int price) {
+        String query = "UPDATE hotel_room_type SET hotel_id=?, room_type=?, stock=?, price=? WHERE id=?";
         boolean isUpdate;
 
         try {
@@ -134,7 +147,8 @@ public class HotelRoomType {
             preparedStatement.setInt(1, hotelId);
             preparedStatement.setString(2, roomType);
             preparedStatement.setInt(3, stock);
-            preparedStatement.setInt(4, id);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, id);
             isUpdate = preparedStatement.executeUpdate() != -1;
             preparedStatement.close();
         } catch (SQLException e) {
@@ -143,6 +157,7 @@ public class HotelRoomType {
 
         return isUpdate;
     }
+
     public boolean deleteHotelRoomType(int id) {
         String query = "DELETE FROM hotel_room_type WHERE id = ?";
 
@@ -192,7 +207,8 @@ public class HotelRoomType {
                 int HOTEL_ID = resultSet.getInt("hotel_id");
                 String ROOM_TYPE = resultSet.getString("room_type");
                 int STOCK = resultSet.getInt("stock");
-                hotelRoomType = new HotelRoomType(ID, HOTEL_ID, ROOM_TYPE, STOCK);
+                int PRICE = resultSet.getInt("price");
+                hotelRoomType = new HotelRoomType(ID, HOTEL_ID, ROOM_TYPE, STOCK, PRICE);
                 hotelRoomTypeList.add(hotelRoomType);
             }
             resultSet.close();
