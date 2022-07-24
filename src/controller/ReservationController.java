@@ -18,7 +18,7 @@ public class ReservationController {
     }
 
     public boolean addReservation(int hotelId, int room_id, int hostel_id) {
-        if (reservation.add(hotelId, room_id, hostel_id)){
+        if (getReservation().add(hotelId, room_id, hostel_id)){
             System.out.println(" *Reservation was added.");
             return true;
         } else {
@@ -28,6 +28,19 @@ public class ReservationController {
     }
 
     public int getLastReservationId(){
-        return getReservation().getLastReservationId();
+        int lastReservationId;
+
+        if (getReservation().getLastReservationId() > 0) {
+            lastReservationId = getReservation().getLastReservationId();
+        } else {
+            System.out.println(" *Reservation not found!");
+            lastReservationId = -1;
+        }
+
+        return lastReservationId;
+    }
+
+    public Reservation getFetchReservationById(int reservationId) {
+        return getReservation().getFetch(reservationId);
     }
 }

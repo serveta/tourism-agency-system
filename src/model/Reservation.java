@@ -92,4 +92,29 @@ public class Reservation {
 
         return lastReservationId;
     }
+
+    public Reservation getFetch(int id) {
+        String query = "SELECT * FROM reservation WHERE id = ?";
+
+        Reservation reservation = null;
+
+        try {
+            PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int ID = resultSet.getInt("id");
+                int HOTEL_ID = resultSet.getInt("hotel_id");
+                int ROOM_ID = resultSet.getInt("room_id");
+                int HOSTEL_ID = resultSet.getInt("hostel_id");
+
+                reservation = new Reservation(ID, HOTEL_ID, ROOM_ID, HOSTEL_ID);
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservation;
+    }
 }

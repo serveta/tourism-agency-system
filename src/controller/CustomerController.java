@@ -10,12 +10,17 @@ public class CustomerController {
     }
 
     public boolean addCustomer(int reservationId, int idNumber, String firstName, String lastName) {
-        // Reservation control!!!!
-        if(customer.add(reservationId,idNumber,firstName,lastName)){
-            System.out.println(" +" + firstName + " was added.");
-            return true;
+        ReservationController reservationController = new ReservationController();
+        if (reservationController.getFetchReservationById(reservationId) != null){
+            if(customer.add(reservationId,idNumber,firstName,lastName)){
+                System.out.println(" +" + firstName + " was added.");
+                return true;
+            } else {
+                System.out.println(" *Error occurred. (customer add)");
+                return false;
+            }
         } else {
-            System.out.println(" *Error occurred. (customer add)");
+            System.out.println(" *Reservation not found!");
             return false;
         }
     }
