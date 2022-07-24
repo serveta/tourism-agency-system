@@ -21,9 +21,12 @@ public class SearchGUI {
         CustomerController customerController = new CustomerController();
         this.searchController = new SearchController();
 
-        Date date = Date.valueOf("2022-07-01");
-        System.out.println("Results according to the searched date;");
-        ArrayList<Hotel> hotelList = searchController.searchHotelBySeasonEnd(date);
+        Date startDate = Date.valueOf("2022-06-28");
+        Date endDate = Date.valueOf("2022-07-01");
+        String hotelAddress = "Istanbul";
+        String hotelName = "";
+        System.out.println("Results;");
+        ArrayList<Hotel> hotelList = searchController.searchHotelBySeasonEnd(startDate, endDate, hotelAddress, hotelName);
         for (Hotel hotel : hotelList) {
             System.out.println(" + id:" + hotel.getId() + " name: " + hotel.getName());
         }
@@ -72,7 +75,7 @@ public class SearchGUI {
             System.out.print("Last name: ");
             String lastName = scanner.next();
 
-            customerController.addCustomer(reservationId,idNum,firstName,lastName);
+            customerController.addCustomer(reservationId, idNum, firstName, lastName);
         }
 
         System.out.println("*****");

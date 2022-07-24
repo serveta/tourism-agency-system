@@ -7,22 +7,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Search {
-    public ArrayList<Hotel> searchHotelBySeasonEnd(Date seasonEnd) {
+    public ArrayList<Hotel> searchHotelBySeasonEnd(Date seasonStart, Date seasonEnd, String hotelAddress, String hotelName) {
         String query = "SELECT hotel.* FROM hotel_season " +
                 "LEFT JOIN hotel ON hotel.id = hotel_season.hotel_id " +
-                "WHERE season_end >= ?";
+                "WHERE hotel_season.season_start <= ? " +
+                "AND hotel_season.season_end >= ? " +
+                "AND hotel.address ILIKE '%{{address}}%' " +
+                "AND hotel.name ILIKE '%{{name}}%'";
+
+        query = query.replace("{{name}}", hotelName);
+        query = query.replace("{{address}}", hotelAddress);
 
         ArrayList<Hotel> responseList = new ArrayList<>();
 
         Hotel response;
 
-
         try {
             PreparedStatement preparedStatement = DBConnector.getInstance().prepareStatement(query);
-            preparedStatement.setDate(1, seasonEnd);
+            preparedStatement.setDate(1, seasonStart);
+            preparedStatement.setDate(2, seasonEnd);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int ID = resultSet.getInt("id");
